@@ -17,6 +17,7 @@ class App extends StatefulWidget {
 
 class _AppState extends State<App> {
   late BuildContext appStateContext;
+  bool _getThemeFlag = false;
   final Store<AppState> _store =
       Store(reducers, initialState: AppState.initial());
 
@@ -40,7 +41,10 @@ class _AppState extends State<App> {
           converter: (store) => store.state,
           builder: (context, state) {
             appStateContext = context;
-            getCurrentAppTheme(appStateContext);
+            if (!_getThemeFlag) {
+              getCurrentAppTheme(appStateContext);
+              _getThemeFlag = true;
+            }
             return MaterialApp(
               theme: Styles.themeData(state.darkTheme),
               debugShowCheckedModeBanner: false,
