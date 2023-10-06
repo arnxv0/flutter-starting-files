@@ -1,25 +1,24 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class Styles {
   static ThemeData themeData(bool isDarkTheme) {
     ThemeData darkThemeData = ThemeData(
-      fontFamily: 'Manrope',
-      primaryColor: const Color(0xff202020),
-      backgroundColor: const Color(0xff202020),
-      canvasColor: const Color(0xff202020),
+      fontFamily: 'Montserrat',
+      primaryColor: const Color(0xff011627),
+      canvasColor: const Color(0xff011627),
       textTheme: const TextTheme(
-        headline1: TextStyle(
-          color: Color(0xffB1FEC3),
+        bodyLarge: TextStyle(
+          color: Color(0xffFDFFFC),
         ),
-        subtitle1: TextStyle(
-          color: Color(0xffD4D4D4),
-        ),
-        bodyText1: TextStyle(
-          color: Colors.white,
+        bodyMedium: TextStyle(
+          color: Color(0xff2EC4B6),
         ),
       ),
       inputDecorationTheme: InputDecorationTheme(
-        fillColor: const Color(0xff373737),
+        fillColor: const Color(0xff022C4E),
         // enabledBorder: UnderlineInputBorder(
         //   borderSide: BorderSide(color: Color(0xffD4D4D4)),
         // ),
@@ -29,28 +28,35 @@ class Styles {
         contentPadding: const EdgeInsets.all(10.0),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10.0),
+          borderSide: const BorderSide(
+            color: Color(0xff011627),
+          ),
+        ),
+      ),
+      appBarTheme: const AppBarTheme(
+        backgroundColor: Color(0xff011627),
+        systemOverlayStyle: SystemUiOverlayStyle(
+          statusBarColor: Color(0xff011627),
+          statusBarIconBrightness: Brightness.light,
+          statusBarBrightness: Brightness.dark,
         ),
       ),
     );
 
     ThemeData lightThemeData = ThemeData(
-      fontFamily: 'Manrope',
-      primaryColor: Colors.white,
-      backgroundColor: Colors.white,
-      canvasColor: Colors.white,
+      fontFamily: 'Montserrat',
+      primaryColor: const Color(0xffFDFFFC),
+      canvasColor: const Color(0xffFDFFFC),
       textTheme: const TextTheme(
-        headline1: TextStyle(
-          color: Color(0xff4E4E4E),
+        bodyLarge: TextStyle(
+          color: Color(0xff011627),
         ),
-        subtitle1: TextStyle(
-          color: Color(0xff868383),
-        ),
-        bodyText1: TextStyle(
-          color: Color(0xff263238),
+        bodyMedium: TextStyle(
+          color: Color(0xff2EC4B6),
         ),
       ),
       inputDecorationTheme: InputDecorationTheme(
-        fillColor: const Color(0xffF5F5F5),
+        fillColor: const Color(0xffffffff),
         // enabledBorder: UnderlineInputBorder(
         //   borderSide: BorderSide(color: Color(0xff868383)),
         // ),
@@ -60,6 +66,29 @@ class Styles {
         contentPadding: const EdgeInsets.all(10.0),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10.0),
+          borderSide: const BorderSide(
+            color: Color(0xff011627),
+          ),
+        ),
+        labelStyle: const TextStyle(
+          color: Color(0xff011627),
+          fontVariations: [
+            FontVariation('wght', 400),
+          ],
+        ),
+        hintStyle: const TextStyle(
+          fontVariations: [
+            FontVariation('wght', 400),
+          ],
+        ),
+        focusColor: const Color(0xff011627),
+      ),
+      appBarTheme: const AppBarTheme(
+        backgroundColor: Color(0xffFDFFFC),
+        systemOverlayStyle: SystemUiOverlayStyle(
+          statusBarColor: Color(0xffFDFFFC),
+          statusBarIconBrightness: Brightness.dark,
+          statusBarBrightness: Brightness.light,
         ),
       ),
     );

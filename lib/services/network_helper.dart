@@ -1,66 +1,147 @@
-import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
+
+import '../utilities/constants.dart';
 
 class NetworkHelper {
   NetworkHelper();
 
-  static String endpoint = 'https://www.example.com/api';
+  static String host =
+      isProdApp ? 'http://localhost:5858' : 'http://localhost:5858';
+  static String endpoint = '$host/api/v1';
 
-  static Future<bool> checkUserExists(String phone) async {
-    var url = Uri.parse('$endpoint/user-exists?phone=$phone');
-    var response = await http.get(url);
-    if (kDebugMode) {
-      print(
-        'get $url ${response.statusCode} Response: ${response.body} ${response.headers}',
-      );
-    }
-    if (response.statusCode == 200 && response.body == 'true') {
-      return true;
-    }
-    return false;
-  }
-}
-
-// static Future<Map<String, dynamic>> registerAndGetUserDetails(
-//     AccountDetails accountDetails,
-//     ) async {
-//   Uri url = Uri.parse('$endpoint/auth');
-//   Map<String, String> headerMap = {
-//     'authtoken': accountDetails.token,
-//   };
+// static Future<NetworkHelperResult> getConfig() async {
+//   NetworkHelperResult result = NetworkHelperResult();
 //
-//   http.Response response = await http.post(url, headers: headerMap);
-//   print(
-//       'post $url ${response.statusCode} Response: ${response.body} ${response.headers}');
-//   Map<String, dynamic> result = new Map();
-//   result['success'] = false;
-//   if (response.statusCode == 200) {
-//     print('post $url successful');
-//     result['success'] = true;
-//     Map<String, dynamic> responseObject =
-//     new Map<String, dynamic>.from(json.decode(response.body));
-//     print('post $url Body: $responseObject');
-//     User newUser = new User(
-//       name: responseObject['name'] == null || responseObject['name'] == ''
-//           ? 'User'
-//           : responseObject['name'],
-//       email: responseObject['email'],
-//       picture: responseObject['photoURL'] == null ||
-//           responseObject['photoURL'] == ''
-//           ? defaultProfileUrl
-//           : responseObject['photoURL'],
+//   Uri url = Uri.parse('$endpoint/appConfig');
+//   NetworkLogger.logRequest(url: url, type: RequestType.get);
+//
+//   try {
+//     var response = await http.get(url);
+//
+//     result.setStatusCode(response.statusCode);
+//     NetworkLogger.logResponse(
+//       response: response,
+//       url: url,
+//       type: RequestType.get,
 //     );
 //
-//     print(
-//         'post $url user: ${newUser.name} ${newUser.email} ${newUser.picture}');
-//     result['user'] = newUser;
-//   } else {
-//     print('post $url failed');
-//     result['success'] = false;
-//     result['user'] = null;
-//     result['message'] = response.body;
+//     Map<String, dynamic> responseObject = json.decode(response.body);
+//
+//     if (responseObject['success'] == true) {
+//       result.setSuccess(true);
+//       result.setMessage('User updated');
+//       result.setData(AppConfig.fromNetwork(responseObject['result']));
+//     } else {
+//       result.setSuccess(false);
+//       result.setMessage(responseObject['error'] ?? responseObject['message']);
+//     }
+//   } catch (e) {
+//     log('get $url Error: $e');
+//     NetworkActionHelper.setErrorStatusCode(
+//       result: result,
+//       error: e,
+//     );
 //   }
 //
-//   print('post $url result: $result');
 //   return result;
 // }
+
+// static Future<NetworkHelperResult> getUpdatedUser({
+//   required User user,
+// }) async {
+//   NetworkHelperResult result = NetworkHelperResult();
+//
+//   Uri url = Uri.parse('$endpoint/');
+//   NetworkLogger.logRequest(url: url, type: RequestType.get);
+//
+//   try {
+//     var response = await http.get(
+//       url,
+//       headers: user.headers.cast<String, String>(),
+//     );
+//
+//     result.setStatusCode(response.statusCode);
+//     NetworkLogger.logResponse(
+//       response: response,
+//       url: url,
+//       type: RequestType.get,
+//     );
+//
+//     Map<String, dynamic> responseObject = json.decode(response.body);
+//
+//     if (responseObject['success'] == true) {
+//       result.setSuccess(true);
+//       result.setMessage('User updated');
+//       result.setData(
+//         User.fromNetwork(responseObject['result'])
+//             .updateHeaders(response.headers),
+//       );
+//     } else {
+//       result.setSuccess(false);
+//       result.setMessage(responseObject['error'] ?? responseObject['message']);
+//     }
+//   } catch (e) {
+//     log('get $url Error: $e');
+//     NetworkActionHelper.setErrorStatusCode(
+//       result: result,
+//       error: e,
+//     );
+//   }
+//
+//   return result;
+// }
+
+// static Future<NetworkHelperResult> sendLoginOTP({
+//   required String countryCode,
+//   required String phone,
+// }) async {
+//   NetworkHelperResult result = NetworkHelperResult();
+//
+//   Map body = {
+//     'countryCode': countryCode,
+//     'phone': phone,
+//   };
+//
+//   Uri url = Uri.parse('$endpoint/login/phone');
+//   NetworkLogger.logRequest(
+//     url: url,
+//     type: RequestType.post,
+//     body: body,
+//   );
+//
+//   try {
+//     var response = await http.post(
+//       url,
+//       body: json.encode(body),
+//       headers: {
+//         'Content-Type': 'application/json',
+//       },
+//     );
+//
+//     result.setStatusCode(response.statusCode);
+//     NetworkLogger.logResponse(
+//       response: response,
+//       url: url,
+//       type: RequestType.post,
+//     );
+//
+//     Map<String, dynamic> responseObject = json.decode(response.body);
+//
+//     if (responseObject['success'] == true) {
+//       result.setSuccess(true);
+//       result.setMessage('OTP sent');
+//     } else {
+//       result.setSuccess(false);
+//       result.setMessage(responseObject['error'] ?? responseObject['message']);
+//     }
+//   } catch (e) {
+//     log('post $url Error: $e');
+//     NetworkActionHelper.setErrorStatusCode(
+//       result: result,
+//       error: e,
+//     );
+//   }
+//
+//   return result;
+// }
+}

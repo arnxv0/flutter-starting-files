@@ -3,11 +3,11 @@ import 'package:flutter/material.dart';
 import '../widgets/error_dialog.dart';
 import '../widgets/loading_dialog.dart';
 
-class DialogManager {
-  DialogManager();
+class ManagerDialog {
+  ManagerDialog();
 
-  static void showLoadingDialog(BuildContext context) {
-    showGeneralDialog(
+  static Future<dynamic> showLoadingDialog(BuildContext context) {
+    return showGeneralDialog(
       context: context,
       barrierColor: const Color(0xff202020),
       // Background color
@@ -23,12 +23,12 @@ class DialogManager {
     );
   }
 
-  static void showCustomDialog(
+  static Future<dynamic> showCustomDialog(
     BuildContext context,
     Widget alertDialog,
     bool barrierDismissible,
   ) {
-    showDialog(
+    return showDialog(
       barrierDismissible: barrierDismissible,
       context: context,
       builder: (BuildContext context) {

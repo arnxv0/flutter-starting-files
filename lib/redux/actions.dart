@@ -13,3 +13,7 @@ class UpdateNewUser extends Action {
 
   UpdateNewUser({required this.newUser});
 }
+
+class ClearUser extends Action {
+  ClearUser();
+}
